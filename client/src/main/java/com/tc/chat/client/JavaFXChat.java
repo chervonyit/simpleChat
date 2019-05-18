@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 public class JavaFXChat extends Application implements TCPconnectionListener {
 
+
     private static final String ipAddr = "tcstorage.myqnapcloud.com";
     private static final int port = 8189;
     private TCPconnection tcpConnection;
@@ -60,8 +61,11 @@ public class JavaFXChat extends Application implements TCPconnectionListener {
         sendBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 String messageText = nameField.getText() + " : " + messageField.getText();
-                tcpConnection.sendString(messageText);
-                //chatArea.appendText(messageText);
+                if(!messageField.getText().equals("")){
+                    tcpConnection.sendString(messageText);
+                } else {
+                    return;
+                }
             }
         });
 
@@ -69,7 +73,7 @@ public class JavaFXChat extends Application implements TCPconnectionListener {
         primaryStage.show();
     }
 
-    public void printMsg(String message){
+    public void printMsg(String message) {
         chatArea.appendText(message + "\r\n");
     }
 
